@@ -1,10 +1,10 @@
 import "./App.css";
-import Card from "./components/Card";
+import CardGrid from "./components/CardGrid";
 
 function App() {
   return (
     <>
-      <Card name="ditto" />
+      <CardGrid />
     </>
   );
 }
