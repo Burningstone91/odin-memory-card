@@ -1,36 +1,26 @@
-import { useEffect, useState } from "react";
 import Card from "./Card";
+import PropTypes from "prop-types";
 
-const pokemonList = ["pikachu", "mew", "charmander"];
-
-function CardGrid() {
-  const [pokemonData, setPokemonData] = useState([]);
-
-  useEffect(() => {
-    Promise.all(
-      pokemonList.map((pokemon) =>
-        fetch(`https://pokeapi.co/api/v2/pokemon/${pokemon}`).then((response) =>
-          response.json()
-        )
-      )
-    )
-      .then((data) => setPokemonData(data))
-      .catch((error) => console.error(error));
-  }, []);
-
+function CardGrid({ pokemons, onClick }) {
   return (
     <div className="cards">
-      {pokemonData.map((pokemon) => {
+      {pokemons.map((pokemon) => {
         return (
           <Card
             key={pokemon.name}
             name={pokemon.name}
             imgsrc={pokemon?.sprites.front_default}
+            onClick={onClick}
           />
         );
       })}
     </div>
   );
 }
+
+CardGrid.propTypes = {
+  pokemons: PropTypes.array,
+  onClick: PropTypes.func,
+};
 
 export default CardGrid;
