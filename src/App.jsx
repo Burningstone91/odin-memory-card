@@ -1,5 +1,12 @@
 import "./App.css";
+import Card from "./components/Card";
 
-const App = () => <h1>Our First Test</h1>;
+function App() {
+  return (
+    <>
+      <Card name="ditto" />
+    </>
+  );
+}
 
 export default App;
