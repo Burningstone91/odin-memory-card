@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import CardGrid from "./CardGrid";
+import Card from "./Card";
 
 const pokemonList = [
   "pikachu",
@@ -16,6 +16,7 @@ function Game() {
   const [pokemonData, setPokemonData] = useState([]);
   const [selected, setSelected] = useState([]);
   const [score, setScore] = useState(0);
+  const [highscore, setHighscore] = useState(0);
 
   useEffect(() => {
     Promise.all(
@@ -39,10 +40,17 @@ function Game() {
   }
 
   function handleClick(name) {
+    if (!selected.includes(name) && score === 7) {
+      alert("You won!");
+      setHighscore(score + 1);
+      reset();
+      return;
+    }
+
     if (selected.includes(name)) {
-      setSelected([]);
-      setScore(0);
-      console.log("Game over, already clicked!");
+      if (score > highscore) setHighscore(score);
+      alert("Gameover");
+      reset();
       return;
     }
 
@@ -51,9 +59,31 @@ function Game() {
     setPokemonData(shuffle(pokemonData));
   }
 
+  function reset() {
+    setScore(0);
+    setSelected([]);
+    setPokemonData(shuffle(pokemonData));
+    return;
+  }
+
   return (
-    <div className="cards">
-      <CardGrid pokemons={pokemonData} onClick={handleClick} />
+    <div className="game">
+      <div className="scores">
+        <p className="current-score">{`Current Score: ${score}`}</p>
+        <p className="high-score">{`High Score: ${highscore}`}</p>
+      </div>
+      <div className="cards">
+        {pokemonData.map((pokemon) => {
+          return (
+            <Card
+              key={pokemon.name}
+              name={pokemon.name}
+              imgsrc={pokemon?.sprites.front_default}
+              onClick={handleClick}
+            />
+          );
+        })}
+      </div>
     </div>
   );
 }
