@@ -2,7 +2,7 @@ import PropTypes from "prop-types";
 
 function Card({ name, imgsrc, onClick }) {
   return (
-    <div className="card" onClick={onClick}>
+    <div className="card" onClick={() => onClick(name)}>
       <img className="poke-image" src={imgsrc} alt={"Pokemon " + name}></img>
       <p className="poke-name">
         {name.charAt(0).toUpperCase() + name.slice(1)}

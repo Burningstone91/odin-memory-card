@@ -14,6 +14,8 @@ const pokemonList = [
 
 function Game() {
   const [pokemonData, setPokemonData] = useState([]);
+  const [selected, setSelected] = useState([]);
+  const [score, setScore] = useState(0);
 
   useEffect(() => {
     Promise.all(
@@ -36,7 +38,16 @@ function Game() {
     return shuffledArr;
   }
 
-  function handleClick() {
+  function handleClick(name) {
+    if (selected.includes(name)) {
+      setSelected([]);
+      setScore(0);
+      console.log("Game over, already clicked!");
+      return;
+    }
+
+    setScore(score + 1);
+    setSelected([...selected, name]);
     setPokemonData(shuffle(pokemonData));
   }
 
