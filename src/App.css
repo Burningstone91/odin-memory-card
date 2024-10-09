@@ -28,7 +28,7 @@ body {
   width: 250px;
   height: 250px;
   background: grey;
-  opacity: 60%;
+  opacity: 90%;
   transition: all 0.3s ease 0s;
 }
 
@@ -48,5 +48,10 @@ body {
 }
 
 .scores {
-  font-size: 36px;
+  font-size: 28px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: sticky;
+  top: 0;
 }
